@@ -1,6 +1,5 @@
 package com.testingplayground;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -8,6 +7,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DisabledInputTest extends BaseTest {
 
@@ -35,6 +36,6 @@ public class DisabledInputTest extends BaseTest {
                 By.xpath("//div[@id='opstatus']")
         );
 
-        Assertions.assertEquals("Input Enabled...", lblInputStatus.getText());
+        assertEquals("Input Enabled...", lblInputStatus.getText());
     }
 }

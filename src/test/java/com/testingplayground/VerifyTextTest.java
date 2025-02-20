@@ -1,9 +1,10 @@
 package com.testingplayground;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class VerifyTextTest extends BaseTest{
 
@@ -22,6 +23,6 @@ public class VerifyTextTest extends BaseTest{
                 )
         );
 
-        Assertions.assertEquals(message, lblWelcome.getText());
+        assertEquals(message, lblWelcome.getText());
     }
 }

@@ -1,11 +1,12 @@
 package com.testingplayground;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ShadowDomTest extends BaseTest {
 
@@ -38,7 +39,6 @@ public class ShadowDomTest extends BaseTest {
 
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
         String clipboardText = (String) jsExecutor.executeScript("return navigator.clipboard.readText();");
-
-        Assertions.assertEquals(inputGUID.getAttribute("value"), clipboardText);
+        assertEquals(inputGUID.getAttribute("value"), clipboardText);
     }
 }

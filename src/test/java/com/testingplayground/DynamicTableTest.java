@@ -1,9 +1,10 @@
 package com.testingplayground;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DynamicTableTest extends BaseTest {
 
@@ -22,6 +23,6 @@ public class DynamicTableTest extends BaseTest {
                 By.xpath("//p[@class='bg-warning']")
         );
 
-        Assertions.assertTrue(lblExpectedChromeCPU.getText().contains(lblChromeCPU.getText()));
+        assertTrue(lblExpectedChromeCPU.getText().contains(lblChromeCPU.getText()));
     }
 }

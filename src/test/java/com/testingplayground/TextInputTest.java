@@ -1,9 +1,10 @@
 package com.testingplayground;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TextInputTest extends BaseTest {
 
@@ -26,7 +27,7 @@ public class TextInputTest extends BaseTest {
         );
         btnChangeValue.click();
 
-        Assertions.assertEquals(message, btnChangeValue.getText());
+        assertEquals(message, btnChangeValue.getText());
 
         try {
             Thread.sleep(3000);

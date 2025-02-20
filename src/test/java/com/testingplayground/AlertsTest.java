@@ -10,7 +10,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AlertsTest extends BaseTest {
 
@@ -50,6 +49,5 @@ public class AlertsTest extends BaseTest {
         wait.until(ExpectedConditions.alertIsPresent());
         assertEquals("Yes", alert.getText());
         alert.accept();
-
     }
 }
