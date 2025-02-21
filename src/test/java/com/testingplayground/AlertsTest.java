@@ -3,36 +3,31 @@ package com.testingplayground;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+import static com.testingplayground.Utils.clickElement;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AlertsTest extends BaseTest {
 
     @Test
     public void testAlerts() {
-        WebElement btnAlerts = driver.findElement(
-                By.xpath("//a[text()='Alerts']")
-        );
-        btnAlerts.click();
-
-        WebElement btnAlert = driver.findElement(
-                By.xpath("//button[@id='alertButton']")
-        );
-        btnAlert.click();
+        By btnAlerts = By.xpath("//a[text()='Alerts']");
+        By btnAlert = By.xpath("//button[@id='alertButton']");
+        By btnConfirm = By.xpath("//button[@id='confirmButton']");
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+
+        clickElement(btnAlerts);
+        clickElement(btnAlert);
+
         Alert alert = wait.until(ExpectedConditions.alertIsPresent());
         alert.accept();
 
-        WebElement btnConfirm = driver.findElement(
-                By.xpath("//button[@id='confirmButton']")
-        );
-        btnConfirm.click();
+        clickElement(btnConfirm);
 
         wait.until(ExpectedConditions.alertIsPresent());
         alert.dismiss();
@@ -41,7 +36,7 @@ public class AlertsTest extends BaseTest {
         assertEquals("No", alert.getText());
         alert.accept();
 
-        btnConfirm.click();
+        clickElement(btnConfirm);
 
         wait.until(ExpectedConditions.alertIsPresent());
         alert.accept();

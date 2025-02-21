@@ -2,40 +2,26 @@ package com.testingplayground;
 
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+import static com.testingplayground.Utils.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DisabledInputTest extends BaseTest {
 
     @Test
     public void testDisabledInput() {
-        WebElement btnDisabledInput = driver.findElement(
-                By.xpath("//a[text()='Disabled Input']")
-        );
-        btnDisabledInput.click();
+        By btnDisabledInput = By.xpath("//a[text()='Disabled Input']");
+        By btnEnableDelay = By.xpath("//button[@id='enableButton']");
+        By inputField = By.xpath("//input[@id='inputField']");
+        By lblInputStatus = By.xpath("//div[@id='opstatus']");
 
-        WebElement btnEnableDelay = driver.findElement(
-                By.xpath("//button[@id='enableButton']")
-        );
-        btnEnableDelay.click();
+        clickElement(btnDisabledInput);
+        clickElement(btnEnableDelay);
+        waitElementClickable(inputField, Duration.ofSeconds(5));
+        sendText(inputField, "Hola mundo");
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-
-        wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        By.xpath("//input[@id='inputField']")
-                )
-        );
-
-        WebElement lblInputStatus = driver.findElement(
-                By.xpath("//div[@id='opstatus']")
-        );
-
-        assertEquals("Input Enabled...", lblInputStatus.getText());
+        assertEquals("Input Enabled...", getElementText(lblInputStatus));
     }
 }

@@ -4,40 +4,28 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import static com.testingplayground.Utils.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SampleAppTest extends BaseTest{
 
     @Test
     public void testSampleApp() {
-        WebElement btnSampleApp = driver.findElement(
-                By.xpath("//a[text()='Sample App']")
-        );
-        btnSampleApp.click();
-
         String username = "Juan Perez";
         String pwd = "pwd";
         String message = "Welcome, " + username + "!";
 
-        WebElement inputUsername = driver.findElement(
-                By.xpath("//input[@name='UserName']")
-        );
-        inputUsername.sendKeys(username);
+        By btnSampleApp = By.xpath("//a[text()='Sample App']");
+        By inputUsername = By.xpath("//input[@name='UserName']");
+        By inputPwd = By.xpath("//input[@name='Password']");
+        By btnLogin = By.xpath("//button[@id='login']");
+        By lblMessage = By.xpath("//label[@class='text-success']");
 
-        WebElement inputPwd = driver.findElement(
-                By.xpath("//input[@name='Password']")
-        );
-        inputPwd.sendKeys(pwd);
+        clickElement(btnSampleApp);
+        sendText(inputUsername, username);
+        sendText(inputPwd, pwd);
+        clickElement(btnLogin);
 
-        WebElement btnLogin = driver.findElement(
-                By.xpath("//button[@id='login']")
-        );
-        btnLogin.click();
-
-        WebElement lblMessage = driver.findElement(
-                By.xpath("//label[@class='text-success']")
-        );
-
-        assertEquals(message, lblMessage.getText());
+        assertEquals(message, getElementText(lblMessage));
     }
 }

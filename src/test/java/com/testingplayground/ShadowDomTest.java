@@ -12,15 +12,12 @@ public class ShadowDomTest extends BaseTest {
 
     @Test
     public void testShadowDom() {
-        WebElement btnShadowDom = driver.findElement(
-                By.xpath("//a[text()='Shadow DOM']")
-        );
-        btnShadowDom.click();
+        By btnShadowDom = By.xpath("//a[text()='Shadow DOM']");
+        By xpathShadowHost = By.xpath("//guid-generator");
 
-        WebElement shadowHost = driver.findElement(
-                By.tagName("guid-generator")
-        );
+        Utils.clickElement(btnShadowDom);
 
+        WebElement shadowHost = driver.findElement(xpathShadowHost);
         SearchContext shadowRoot = shadowHost.getShadowRoot();
 
         WebElement btnGenerate = shadowRoot.findElement(

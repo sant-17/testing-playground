@@ -10,29 +10,16 @@ public class TextInputTest extends BaseTest {
 
     @Test
     public void testTextInput() {
-        WebElement btnTextInput = driver.findElement(
-                By.xpath("//a[text()='Text Input']")
-        );
-        btnTextInput.click();
-
         String message = "Hola mundo";
 
-        WebElement inputText = driver.findElement(
-                By.xpath("//input[@id='newButtonName']")
-        );
-        inputText.sendKeys(message);
+        By btnTextInput = By.xpath("//a[text()='Text Input']");
+        By inputText = By.xpath("//input[@id='newButtonName']");
+        By btnChangeValue = By.xpath("//button[@id='updatingButton']");
 
-        WebElement btnChangeValue = driver.findElement(
-                By.xpath("//button[@id='updatingButton']")
-        );
-        btnChangeValue.click();
+        Utils.clickElement(btnTextInput);
+        Utils.sendText(inputText, message);
+        Utils.clickElement(btnChangeValue);
 
-        assertEquals(message, btnChangeValue.getText());
-
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        assertEquals(message, Utils.getElementText(btnChangeValue));
     }
 }

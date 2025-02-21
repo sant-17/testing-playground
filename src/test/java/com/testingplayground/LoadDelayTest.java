@@ -2,32 +2,24 @@ package com.testingplayground;
 
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+import static com.testingplayground.Utils.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LoadDelayTest extends BaseTest{
 
     @Test
     public void testLoadDelay() {
-        WebElement btnLoadDelay = driver.findElement(By.xpath("//a[text()='Load Delay']"));
-        btnLoadDelay.click();
+        By btnLoadDelay = By.xpath("//a[text()='Load Delay']");
+        By btnAfterDelay = By.xpath("//button[@class='btn btn-primary']");
+        By txtTitle = By.xpath("//h3");
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement btnAfterDelay = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(
-                        By.xpath("//button[@class='btn btn-primary']")
-                )
-        );
+        clickElement(btnLoadDelay);
+        waitElementVisible(btnAfterDelay, Duration.ofSeconds(10));
+        clickElement(btnAfterDelay);
 
-        btnAfterDelay.click();
-
-        WebElement txtTitle = driver.findElement(By.xpath("//h3"));
-
-        assertEquals("Load Delays", txtTitle.getText());
+        assertEquals("Load Delays", getElementText(txtTitle));
     }
 }

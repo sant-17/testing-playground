@@ -2,35 +2,25 @@ package com.testingplayground;
 
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+import static com.testingplayground.Utils.clickElement;
+import static com.testingplayground.Utils.waitElementClickable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AjaxDataTest extends BaseTest{
 
     @Test
     public void testAjaxData() {
-        WebElement btnAjaxData = driver.findElement(
-                By.xpath("//a[text()='AJAX Data']")
-        );
-        btnAjaxData.click();
+        By btnAjaxData = By.xpath("//a[text()='AJAX Data']");
+        By btnAjaxRequest = By.xpath("//button[@id='ajaxButton']");
+        By txtAjaxText = By.xpath("//div[@id='content']/p");
 
-        WebElement btnAjaxRequest = driver.findElement(
-                By.xpath("//button[@id='ajaxButton']")
-        );
-        btnAjaxRequest.click();
+        clickElement(btnAjaxData);
+        clickElement(btnAjaxRequest);
+        waitElementClickable(txtAjaxText, Duration.ofSeconds(20));
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-        WebElement txtAjaxText = wait.until(
-                ExpectedConditions.presenceOfElementLocated(
-                        By.xpath("//div[@id='content']/p")
-                )
-        );
-
-        assertEquals("Data loaded with AJAX get request.", txtAjaxText.getText());
+        assertEquals("Data loaded with AJAX get request.", Utils.getElementText(txtAjaxText));
     }
 }

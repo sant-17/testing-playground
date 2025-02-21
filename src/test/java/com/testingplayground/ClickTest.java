@@ -1,38 +1,26 @@
 package com.testingplayground;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
+
+import static com.testingplayground.Utils.getElementAttribute;
 
 public class ClickTest extends BaseTest{
 
     @Test
     public void testClickTest() {
-        WebElement btnClick = driver.findElement(
-                By.xpath("//a[text()='Click']")
-        );
-        btnClick.click();
+        By btnClick = By.xpath("//a[text()='Click']");
+        By btnClickEvent = By.xpath("//button[@id='badButton']");
 
-        WebElement btnClickEvent = driver.findElement(
-                By.xpath("//button[@id='badButton']")
-        );
+        Utils.clickElement(btnClick);
 
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-        jsExecutor.executeScript("arguments[0].click();", btnClickEvent);
+        String buttonClass = getElementAttribute(btnClickEvent, "class");
 
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        Utils.clickJavaScriptElement(btnClickEvent);
+        Assertions.assertEquals(buttonClass, getElementAttribute(btnClickEvent, "class"));
 
-        btnClickEvent.click();
-
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        Utils.clickElement(btnClickEvent);
+        Assertions.assertNotEquals(buttonClass, getElementAttribute(btnClickEvent, "class"));
     }
 }

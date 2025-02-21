@@ -8,39 +8,25 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+import static com.testingplayground.Utils.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ProgressBarTest extends BaseTest {
 
     @Test
     public void testProgressBarTest() {
-        WebElement btnProgressBar = driver.findElement(
-                By.xpath("//a[text()='Progress Bar']")
-        );
-        btnProgressBar.click();
-
-        WebElement btnStart = driver.findElement(
-                By.xpath("//button[@id='startButton']")
-        );
-        btnStart.click();
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-
         String progress = "75";
 
-        WebElement lblProgressBar = wait.until(
-                ExpectedConditions.presenceOfElementLocated(
-                        By.xpath(
-                                String.format("//div[@id='progressBar' and @aria-valuenow='%s']", progress)
-                                )
-                )
-        );
+        By btnProgressBar = By.xpath("//a[text()='Progress Bar']");
+        By btnStart = By.xpath("//button[@id='startButton']");
+        By lblProgressBar = By.xpath("//div[@id='progressBar']");
+        By btnStop = By.xpath("//button[@id='stopButton']");
 
-        WebElement btnStop = driver.findElement(
-                By.xpath("//button[@id='stopButton']")
-        );
-        btnStop.click();
+        clickElement(btnProgressBar);
+        clickElement(btnStart);
+        waitElementAttributeToBe(lblProgressBar, "aria-valuenow", progress, Duration.ofSeconds(30));
+        clickElement(btnStop);
 
-        assertTrue(lblProgressBar.getText().contains(progress));
+        assertTrue(getElementText(lblProgressBar).contains(progress));
     }
 }

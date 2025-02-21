@@ -3,7 +3,6 @@ package com.testingplayground;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -14,33 +13,28 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class AlertPromptTest extends BaseTest {
     @Test
     public void testAlertPrompt() {
-        WebElement btnAlerts = driver.findElement(
-                By.xpath("//a[text()='Alerts']")
-        );
-        btnAlerts.click();
+        String message = "Jirafa";
 
-        WebElement btnPromt = driver.findElement(
-                By.xpath("//button[@id='promptButton']")
-        );
-        btnPromt.click();
+        By btnAlerts = By.xpath("//a[text()='Alerts']");
+        By btnPromt = By.xpath("//button[@id='promptButton']");
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+
+        Utils.clickElement(btnAlerts);
+        Utils.clickElement(btnPromt);
+
         Alert alert = wait.until(ExpectedConditions.alertIsPresent());
 
         wait.until(ExpectedConditions.alertIsPresent());
-
-        String input = "Jirafa";
-
-        alert.sendKeys(input);
+        alert.sendKeys(message);
         alert.accept();
         wait.until(ExpectedConditions.alertIsPresent());
 
-        assertTrue(alert.getText().contains(input));
+        assertTrue(alert.getText().contains(message));
 
         alert.accept();
 
-        btnPromt.click();
-
+        Utils.clickElement(btnPromt);
         alert = wait.until(ExpectedConditions.alertIsPresent());
         alert.dismiss();
         wait.until(ExpectedConditions.alertIsPresent());
